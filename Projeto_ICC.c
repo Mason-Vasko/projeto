@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 typedef char *string; // Cria artificialmente um tipo de dado string
 
 char *readLine() { // Essa função lê a entrada até o usuário pressionar enter,
@@ -26,8 +27,32 @@ char *readLine() { // Essa função lê a entrada até o usuário pressionar ent
   return string;
 }
 
+void iniciar_dia(FILE *adda, int *estoque, float *caixa){
+
+    adda = fopen("dia_anterior.txt","r+");
+    if(adda == NULL){
+        adda = fopen("dia_anterior.txt","w+");
+        scanf("%d",estoque);
+        while(getchar() != '\n');
+        scanf("%f",caixa);
+        while(getchar() != '\n'); //limpa o /n que polui a entrada
+
+    }
+
+}
+
+
 int main(void) {
-  string a = readLine();
+
+FILE *arquivo_do_dia_anterior;
+int espaço_estoque;
+float caixa;
+
+iniciar_dia(arquivo_do_dia_anterior, &espaço_estoque, &caixa);
+
+
+
+string a = readLine();
   printf("%s", a);
   return 0;
 }
