@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 
 typedef char *string; // Cria artificialmente um tipo de dado string
 
@@ -37,9 +37,9 @@ void iniciar_dia(FILE *adda, int *estoque, float *caixa){
         while(getchar() != '\n'); //limpa o /n que polui a entrada
 
     }
-    else{
+  /*  else{
 
-    }
+    }*/
 
 }
 
@@ -49,12 +49,43 @@ int main(void) {
 FILE *arquivo_do_dia_anterior;
 int espaço_estoque;
 float saldo_do_caixa;
+        string nome;
+        string quantidade;
+        string produto;
 
-iniciar_dia(arquivo_do_dia_anterior, &espaço_estoque, &saldo_do_caixacaixa);
+
+//iniciar_dia(arquivo_do_dia_anterior, &espaço_estoque, &saldo_do_caixa);
 
 
 
-string a = readLine();
-  printf("%s", a);
+string comando = readLine();
+string token = strtok(comando, " ");
+    if(strcmp(token, "IP") == 0){
+
+        printf("Inserindo produto. Isso é apenas um protótipo");
+        int i = 0;
+        while(token != NULL){
+            token = strtok(NULL, " ");
+            switch (i) {
+            case 0:
+                strcpy(nome, token);
+                i++;
+                break;
+            
+            case 1:
+                strcpy(quantidade, token);
+                i++;
+                break;
+            case 2:
+                strcpy(produto, token);
+                i++;
+                break;
+            }
+        }
+
+    }
+
+    printf("%s\n%s\n%s\n",nome,quantidade,produto);
+  fclose(arquivo_do_dia_anterior);
   return 0;
 }
