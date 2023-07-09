@@ -33,9 +33,11 @@ void iniciar_dia(FILE *adda, int *estoque, float *caixa){
     if(adda == NULL){
         adda = fopen("dia_anterior.txt","w+");
         scanf("%d",estoque);
-        while(getchar() != '\n');
         scanf("%f",caixa);
         while(getchar() != '\n'); //limpa o /n que polui a entrada
+
+    }
+    else{
 
     }
 
@@ -46,9 +48,9 @@ int main(void) {
 
 FILE *arquivo_do_dia_anterior;
 int espaço_estoque;
-float caixa;
+float saldo_do_caixa;
 
-iniciar_dia(arquivo_do_dia_anterior, &espaço_estoque, &caixa);
+iniciar_dia(arquivo_do_dia_anterior, &espaço_estoque, &saldo_do_caixacaixa);
 
 
 
