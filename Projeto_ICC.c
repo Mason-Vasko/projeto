@@ -27,7 +27,7 @@ char *readLine() { // Essa função lê a entrada até o usuário pressionar ent
   return string;
 }
 
-void iniciar_dia(FILE *adda, int *estoque, float *caixa){
+/*void iniciar_dia(FILE *adda, int *estoque, float *caixa){
 
     adda = fopen("dia_anterior.txt","r+");
     if(adda == NULL){
@@ -37,21 +37,20 @@ void iniciar_dia(FILE *adda, int *estoque, float *caixa){
         while(getchar() != '\n'); //limpa o /n que polui a entrada
 
     }
-  /*  else{
+  //  else{
 
-    }*/
 
-}
+} */
 
 
 int main(void) {
 
-FILE *arquivo_do_dia_anterior;
+//FILE *arquivo_do_dia_anterior;
 int espaço_estoque;
 float saldo_do_caixa;
-        string nome;
-        string quantidade;
-        string produto;
+        string nome = NULL;
+        string quantidade = NULL;
+        string produto = NULL;
 
 
 //iniciar_dia(arquivo_do_dia_anterior, &espaço_estoque, &saldo_do_caixa);
@@ -60,24 +59,24 @@ float saldo_do_caixa;
 
 string comando = readLine();
 string token = strtok(comando, " ");
-    if(strcmp(token, "IP") == 0){
+    if((strcmp(token, "IP\0") == 0) && token != NULL){
 
-        printf("Inserindo produto. Isso é apenas um protótipo");
+        printf("Inserindo produto. Isso é apenas um protótipo\n");
         int i = 0;
-        while(token != NULL){
-            token = strtok(NULL, " ");
+        while((token = strtok(NULL, " ")) != NULL){
+            
             switch (i) {
             case 0:
-                strcpy(nome, token);
+                nome = strdup(token);
                 i++;
                 break;
             
             case 1:
-                strcpy(quantidade, token);
+                quantidade = strdup(token);
                 i++;
                 break;
             case 2:
-                strcpy(produto, token);
+                produto = strdup(token);
                 i++;
                 break;
             }
@@ -86,6 +85,10 @@ string token = strtok(comando, " ");
     }
 
     printf("%s\n%s\n%s\n",nome,quantidade,produto);
-  fclose(arquivo_do_dia_anterior);
+    free(nome);
+    free(quantidade);
+    free(produto);
+
+  //fclose(arquivo_do_dia_anterior);
   return 0;
 }
