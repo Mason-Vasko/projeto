@@ -115,7 +115,7 @@ void MP(Produto *produtos){
   printf("%.2f é o novo preço\n",produtos[codigo_do_produto].preco);
 }
 
-void VE(Produto *produtos){
+void VE(Produto *produtos, float *saldo){
   int codigo_do_produto = -2;
   float preco_total = 0;
   while(codigo_do_produto != -1){
@@ -128,6 +128,7 @@ void VE(Produto *produtos){
     produtos[codigo_do_produto].quantidade--;
   }
   printf("Total: %.2f\n",preco_total);
+  *saldo += preco_total;
   for(int i = 0; i < 50; i++){
     printf("-");
   }
@@ -138,8 +139,12 @@ void CE(){
 
 }
 
-void CS(){
-
+void CS(float *saldo){
+  printf("Saldo: %.2f\n",*saldo);  
+  for(int i = 0; i < 50; i++){
+    printf("-");
+  }
+  printf("\n");
 }
 
 void FE(){
@@ -150,6 +155,7 @@ void programa_mercado(){
 
 String comando;
 int i = 1;
+float saldo = 0;
 int maiorCodigoAtual = 0; //É  o número de produtos adicionados -1
 Produto *produtos = NULL;
 produtos = (Produto*)malloc(sizeof(Produto)*1);
@@ -170,13 +176,13 @@ while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
     MP(produtos);
   }
   else if(strcmp(comando, "VE") == 0){
-    VE(produtos);
+    VE(produtos,&saldo);
   }
   else if(strcmp(comando, "CE") == 0){
     CE();
   }
   else if(strcmp(comando, "CS") == 0){
-    CS();
+    CS(&saldo);
   }
   else if(strcmp(comando, "FE") == 0){
     FE();
