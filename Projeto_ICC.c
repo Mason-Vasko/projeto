@@ -1,3 +1,14 @@
+/*
+Gustavo Blois - 13688162
+Livia Cardoso - 11299940
+João Vitor - (nusp)
+
+
+
+*/
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
