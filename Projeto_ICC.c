@@ -4,6 +4,15 @@
 
 typedef char *String; // Cria artificialmente um tipo de dado string
 
+typedef struct produto{
+
+  char *nome;
+  int quantidade;
+  float preco;
+
+}Produto;
+
+
 char *readLine() { // Essa função lê a entrada até o usuário pressionar enter,
                    // sem deixar poluição na entrada
   char *string = NULL;
@@ -66,9 +75,14 @@ char *readString() { // Essa função lê a entrada até o usuário pressionar e
 
 } */
 
-void IP(){
+void IP(int *maiorCodigoAtual, Produto *produtos){
 
-printf("\nEssa é a função insereProduto\n");
+  produtos = (Produto*)realloc(produtos, sizeof(Produto)* ((*maiorCodigoAtual) + 1) );
+  produtos[*maiorCodigoAtual].nome = readString();
+  scanf("%d %f",&produtos[*maiorCodigoAtual].quantidade , &produtos[*maiorCodigoAtual].preco);
+  while(getchar() != '\n');
+  printf("item %d  \n%s\n%d\n%f\n",*maiorCodigoAtual,produtos[*maiorCodigoAtual].nome,produtos[*maiorCodigoAtual].quantidade,produtos[*maiorCodigoAtual].preco);
+  *maiorCodigoAtual += 1;
 
 }
 
@@ -93,20 +107,23 @@ void CS(){
 }
 
 void FE(){
-  
+
 }
 
 void programa_mercado(){
 
 String comando;
 int i = 1;
-while(i){
+int maiorCodigoAtual = 0; //É  o número de produtos adicionados -1
+Produto *produtos;
+
+while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
  
   comando = readString();
-  printf("%s",comando);
+  printf("%s\n",comando);
 
   if(strcmp(comando, "IP") == 0){
-    IP();
+    IP(&maiorCodigoAtual, produtos);
   }
   else if(strcmp(comando, "AE") == 0){
     AE();
