@@ -89,7 +89,7 @@ void IP(int *maiorCodigoAtual, Produto *produtos){
   produtos[*maiorCodigoAtual].nome = readString();
   scanf("%d %f",&produtos[*maiorCodigoAtual].quantidade , &produtos[*maiorCodigoAtual].preco);
   while(getchar() != '\n');
-  printf("item %d  \n%s\n%d\n%f\n",*maiorCodigoAtual,produtos[*maiorCodigoAtual].nome,produtos[*maiorCodigoAtual].quantidade,produtos[*maiorCodigoAtual].preco);
+  printf("item %d  \n%s\n%d\n%.2f\n",*maiorCodigoAtual,produtos[*maiorCodigoAtual].nome,produtos[*maiorCodigoAtual].quantidade,produtos[*maiorCodigoAtual].preco);
   *maiorCodigoAtual += 1;
 
 }
@@ -105,12 +105,33 @@ void AE(Produto *produtos){
 
 }
 
-void MP(){
+void MP(Produto *produtos){
+  float novo_preço;
+  int codigo_do_produto;
+  scanf("%d %f",&codigo_do_produto,&novo_preço);
+  while(getchar() != '\n');
 
+  produtos[codigo_do_produto].preco = novo_preço;
+  printf("%.2f é o novo preço\n",produtos[codigo_do_produto].preco);
 }
 
-void VE(){
-
+void VE(Produto *produtos){
+  int codigo_do_produto = -2;
+  float preco_total = 0;
+  while(codigo_do_produto != -1){
+    scanf("%d",&codigo_do_produto);
+    if(codigo_do_produto == -1){
+      break;
+    }
+    printf("%s %.2f\n",produtos[codigo_do_produto].nome,produtos[codigo_do_produto].preco);
+    preco_total += produtos[codigo_do_produto].preco;
+    produtos[codigo_do_produto].quantidade--;
+  }
+  printf("Total: %.2f\n",preco_total);
+  for(int i = 0; i < 50; i++){
+    printf("-");
+  }
+  printf("\n");
 }
 
 void CE(){
@@ -146,10 +167,10 @@ while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
     AE(produtos);
   }
   else if(strcmp(comando, "MP") == 0){
-    MP();
+    MP(produtos);
   }
   else if(strcmp(comando, "VE") == 0){
-    VE();
+    VE(produtos);
   }
   else if(strcmp(comando, "CE") == 0){
     CE();
