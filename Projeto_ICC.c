@@ -74,9 +74,6 @@ char *readString() { // Essa função lê a entrada até o usuário pressionar e
     adda = fopen("dia_anterior.txt","r+");
     if(adda == NULL){
         adda = fopen("dia_anterior.txt","w+");
-        scanf("%d",estoque);
-        scanf("%f",caixa);
-        while(getchar() != '\n'); //limpa o /n que polui a entrada
 
     }
   //  else{
@@ -135,7 +132,18 @@ void VE(Produto *produtos, float *saldo){
   printf("\n");
 }
 
-void CE(){
+void CE(Produto *produtos, int maiorCodigoAtual){
+
+  for(int i = 0; i < maiorCodigoAtual; i++){
+    printf("%d %s %d\n",i,produtos[i].nome,produtos[i].quantidade);
+  }
+
+
+
+  for(int i = 0; i < 50; i++){
+    printf("-");
+  }
+  printf("\n");
 
 }
 
@@ -179,7 +187,7 @@ while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
     VE(produtos,&saldo);
   }
   else if(strcmp(comando, "CE") == 0){
-    CE();
+    CE(produtos,maiorCodigoAtual);
   }
   else if(strcmp(comando, "CS") == 0){
     CS(&saldo);
