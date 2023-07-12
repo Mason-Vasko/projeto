@@ -3,8 +3,6 @@ Gustavo Blois - 13688162
 Livia Cardoso - 11299940
 João Vitor - (nusp)
 
-
-
 */
 
 
@@ -97,7 +95,14 @@ void IP(int *maiorCodigoAtual, Produto *produtos){
 
 }
 
-void AE(){
+void AE(Produto *produtos){
+  int codigo_do_produto;
+  int quantidade_adicionada;
+  scanf("%d %d",&codigo_do_produto,&quantidade_adicionada);
+  while(getchar() != '\n');
+  
+  produtos[codigo_do_produto].quantidade += quantidade_adicionada;
+  printf("Foram adicionados %d produtos, agora temos %d produtos", quantidade_adicionada ,produtos[codigo_do_produto].quantidade);
 
 }
 
@@ -127,6 +132,7 @@ String comando;
 int i = 1;
 int maiorCodigoAtual = 0; //É  o número de produtos adicionados -1
 Produto *produtos;
+produtos = (Produto*)malloc(sizeof(Produto)*1);
 
 while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
  
@@ -137,7 +143,7 @@ while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
     IP(&maiorCodigoAtual, produtos);
   }
   else if(strcmp(comando, "AE") == 0){
-    AE();
+    AE(produtos);
   }
   else if(strcmp(comando, "MP") == 0){
     MP();
