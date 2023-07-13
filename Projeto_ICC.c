@@ -22,6 +22,7 @@ typedef struct produto{
 }Produto;
 
 
+
 char *readLine() { // Essa função lê a entrada até o usuário pressionar enter,
                    // sem deixar poluição na entrada
   char *string = NULL;
@@ -69,11 +70,27 @@ char *readString() { // Essa função lê a entrada até o usuário pressionar e
   return string;
 }
 
-/*void iniciar_dia(FILE *adda, int *estoque, float *caixa){
+/*void iniciar_dia(const char* nomeArquivo, int *estoque, float *caixa){
 
-    adda = fopen("dia_anterior.txt","r+");
+    FILE *adda;
+    adda = fopen(nomeArquivo,"r+");
+    char linha[10];
+    if (fgets(linha, sizeof(linha), adda) != NULL) {
+            *estoque = atoi(linha);
+        }
+
+    if (fgets(linha, sizeof(linha), adda) != NULL) {
+            *caixa = atof(linha);
+        }
+
+
+    
     if(adda == NULL){
-        adda = fopen("dia_anterior.txt","w+");
+      adda = fopen(nomeArquivo,"w+");
+      chamar função para leitura do estoque
+      chamar função para leitura do saldo
+      
+      }
 
     }
   //  else{
@@ -103,12 +120,12 @@ void AE(Produto *produtos){
 }
 
 void MP(Produto *produtos){
-  float novo_preço;
+  float novo_preco;
   int codigo_do_produto;
-  scanf("%d %f",&codigo_do_produto,&novo_preço);
+  scanf("%d %f",&codigo_do_produto,&novo_preco);
   while(getchar() != '\n');
 
-  produtos[codigo_do_produto].preco = novo_preço;
+  produtos[codigo_do_produto].preco = novo_preco;
   printf("%.2f é o novo preço\n",produtos[codigo_do_produto].preco);
 }
 
@@ -161,6 +178,8 @@ void FE(){
 
 void programa_mercado(){
 
+
+
 String comando;
 int i = 1;
 float saldo = 0;
@@ -204,6 +223,11 @@ while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
 }
 
 int main(void) {
+
+  
+  //iniciar_dia("caminho/do/arquivo.txt", int *estoque, float *caixa); 
+  //talvez nao passar estoque e o caixa, já que esse é pra leitura, e se for pra escrita, chamar a função adequada, na real passar essas variaveis para leitura 
+  //fazer passagem por referencia no estoque e no saldo do caixa
 
   programa_mercado();
   return 0;
