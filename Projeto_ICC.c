@@ -71,6 +71,7 @@ char *readString() { // Essa função lê a entrada até o usuário pressionar e
 
 
 void IP(int *maiorCodigoAtual, Produto *produtos){
+  //insere um produto novo, lendo seu nome, sua quantidade e seu preço
 
   produtos[*maiorCodigoAtual].nome = readString();
   scanf("%d %f",&produtos[*maiorCodigoAtual].quantidade , &produtos[*maiorCodigoAtual].preco);
@@ -83,13 +84,15 @@ void AE(Produto *produtos){
   int codigo_do_produto;
   int quantidade_adicionada;
   scanf("%d %d",&codigo_do_produto,&quantidade_adicionada);
+  //Pede o codigo do produto ao usuario e o numero de itens que serão adicionados ao estoque
   while(getchar() != '\n');
   
   produtos[codigo_do_produto].quantidade += quantidade_adicionada;
-
+  
 }
 
 void MP(Produto *produtos){
+  //Modifica o preço
   float novo_preço;
   int codigo_do_produto;
   scanf("%d %f",&codigo_do_produto,&novo_preço);
@@ -99,7 +102,8 @@ void MP(Produto *produtos){
 }
 
 void VE(Produto *produtos, float *saldo){
-  int codigo_do_produto = -2;
+  //Lê a entrada do usuário até encontrar o -1. Ao final da execução o preço dos produtos vendidos é adicionado ao saldo
+  int codigo_do_produto = -2; //É inicializado com -2 porque qualquer numero de -1 até infinito positivo é relevante para a execução
   float preco_total = 0;
   while(codigo_do_produto != -1){
     scanf("%d",&codigo_do_produto);
@@ -119,7 +123,7 @@ void VE(Produto *produtos, float *saldo){
 }
 
 void CE(Produto *produtos, int maiorCodigoAtual){
-
+  //percorre todos os itens e os imprime na tela
   for(int i = 0; i < maiorCodigoAtual; i++){
     printf("%d %s %d\n",i,produtos[i].nome,produtos[i].quantidade);
   }
@@ -142,6 +146,7 @@ void CS(float *saldo){
 }
 
 void FE(Produto *produtos, int maiorCodigoAtual, float saldo){
+  //imprime no arquivo a quantidade de itens (maiorCodigoAtual), o saldo e as informações de cada produto
   FILE *arq;
   arq = fopen("dia_anterior.txt","w+");
   fprintf(arq,"%d\n%f\n",maiorCodigoAtual,saldo);
@@ -166,11 +171,14 @@ produtos = (Produto*)malloc(sizeof(Produto)*1);
 
 FILE *arq;
 arq = fopen("dia_anterior.txt","r+");
+//inicia um arquivo para ler
 if(arq == NULL){
+//se o arquivo não existir, o usuário que deve fornecer as informações básicas
   scanf("%d",&n_estoque);
   scanf("%f",&saldo);
 }
 else{
+//se o arquivo existir, vai carregar as informações do arquivo para as variáveis do programa
   fscanf(arq,"%d",&maiorCodigoAtual);
   fscanf(arq,"%f",&saldo);
 
@@ -190,7 +198,7 @@ else{
 while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
  
   comando = readString();
-
+//Até o loop parar, vai pegar do usuário um comando e chamar uma função a depender do comando digitado
   if(strcmp(comando, "IP") == 0){
     produtos = (Produto*)realloc(produtos, sizeof(Produto)* ((maiorCodigoAtual) + 1));
     IP(&maiorCodigoAtual, produtos);
