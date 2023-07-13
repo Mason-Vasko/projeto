@@ -69,24 +69,12 @@ char *readString() { // Essa função lê a entrada até o usuário pressionar e
   return string;
 }
 
-/*void iniciar_dia(FILE *adda, int *estoque, float *caixa){
-
-    adda = fopen("dia_anterior.txt","r+");
-    if(adda == NULL){
-        adda = fopen("dia_anterior.txt","w+");
-
-    }
-  //  else{
-
-
-} */
 
 void IP(int *maiorCodigoAtual, Produto *produtos){
 
   produtos[*maiorCodigoAtual].nome = readString();
   scanf("%d %f",&produtos[*maiorCodigoAtual].quantidade , &produtos[*maiorCodigoAtual].preco);
   while(getchar() != '\n');
-  printf("item %d  \n%s\n%d\n%.2f\n",*maiorCodigoAtual,produtos[*maiorCodigoAtual].nome,produtos[*maiorCodigoAtual].quantidade,produtos[*maiorCodigoAtual].preco);
   *maiorCodigoAtual += 1;
 
 }
@@ -98,7 +86,6 @@ void AE(Produto *produtos){
   while(getchar() != '\n');
   
   produtos[codigo_do_produto].quantidade += quantidade_adicionada;
-  printf("Foram adicionados %d produtos ao produto de codigo %d, agora temos %d produtos\n", quantidade_adicionada , codigo_do_produto ,produtos[codigo_do_produto].quantidade);
 
 }
 
@@ -109,7 +96,6 @@ void MP(Produto *produtos){
   while(getchar() != '\n');
 
   produtos[codigo_do_produto].preco = novo_preço;
-  printf("%.2f é o novo preço\n",produtos[codigo_do_produto].preco);
 }
 
 void VE(Produto *produtos, float *saldo){
@@ -193,9 +179,6 @@ else{
     produtos[j].nome = malloc(sizeof(char)*100);
     fscanf(arq,"%s %d %f",produtos[j].nome,&produtos[j].quantidade,&produtos[j].preco);
   }
-  for(int j = 0; j < maiorCodigoAtual; j++){
-    printf("%s %d %f\n",produtos[j].nome,produtos[j].quantidade,produtos[j].preco);
-  }
   fclose(arq);
 }
 
@@ -207,7 +190,6 @@ else{
 while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
  
   comando = readString();
-  printf("%s\n",comando);
 
   if(strcmp(comando, "IP") == 0){
     produtos = (Produto*)realloc(produtos, sizeof(Produto)* ((maiorCodigoAtual) + 1));
