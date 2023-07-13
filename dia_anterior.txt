@@ -1,7 +1,7 @@
 5
-60
-banana 50 3.50
-morcego 20 3.40
-arroz 10 2.50
-agua 5 1.5
-salsa 11 3.34
+20.000000
+batata 20 2.300000
+banana 12 2.200000
+copo 8 1.200000
+flor 22 3.400000
+batatao 20 1.800000

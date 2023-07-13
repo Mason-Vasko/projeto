@@ -22,7 +22,6 @@ typedef struct produto{
 }Produto;
 
 
-
 char *readLine() { // Essa função lê a entrada até o usuário pressionar enter,
                    // sem deixar poluição na entrada
   char *string = NULL;
@@ -70,27 +69,11 @@ char *readString() { // Essa função lê a entrada até o usuário pressionar e
   return string;
 }
 
-/*void iniciar_dia(const char* nomeArquivo, int *estoque, float *caixa){
+/*void iniciar_dia(FILE *adda, int *estoque, float *caixa){
 
-    FILE *adda;
-    adda = fopen(nomeArquivo,"r+");
-    char linha[10];
-    if (fgets(linha, sizeof(linha), adda) != NULL) {
-            *estoque = atoi(linha);
-        }
-
-    if (fgets(linha, sizeof(linha), adda) != NULL) {
-            *caixa = atof(linha);
-        }
-
-
-    
+    adda = fopen("dia_anterior.txt","r+");
     if(adda == NULL){
-      adda = fopen(nomeArquivo,"w+");
-      chamar função para leitura do estoque
-      chamar função para leitura do saldo
-      
-      }
+        adda = fopen("dia_anterior.txt","w+");
 
     }
   //  else{
@@ -120,12 +103,12 @@ void AE(Produto *produtos){
 }
 
 void MP(Produto *produtos){
-  float novo_preco;
+  float novo_preço;
   int codigo_do_produto;
-  scanf("%d %f",&codigo_do_produto,&novo_preco);
+  scanf("%d %f",&codigo_do_produto,&novo_preço);
   while(getchar() != '\n');
 
-  produtos[codigo_do_produto].preco = novo_preco;
+  produtos[codigo_do_produto].preco = novo_preço;
   printf("%.2f é o novo preço\n",produtos[codigo_do_produto].preco);
 }
 
@@ -172,20 +155,54 @@ void CS(float *saldo){
   printf("\n");
 }
 
-void FE(){
+void FE(Produto *produtos, int maiorCodigoAtual, float saldo){
+  FILE *arq;
+  arq = fopen("dia_anterior.txt","w+");
+  fprintf(arq,"%d\n%f\n",maiorCodigoAtual,saldo);
+  for(int i = 0; i < maiorCodigoAtual; i++){
+    fprintf(arq,"%s %d %f\n",produtos[i].nome,produtos[i].quantidade,produtos[i].preco);
+  }
+
+  fclose(arq);
 
 }
 
+
 void programa_mercado(){
-
-
 
 String comando;
 int i = 1;
 float saldo = 0;
+int n_estoque;
 int maiorCodigoAtual = 0; //É  o número de produtos adicionados -1
 Produto *produtos = NULL;
 produtos = (Produto*)malloc(sizeof(Produto)*1);
+
+FILE *arq;
+arq = fopen("dia_anterior.txt","r+");
+if(arq == NULL){
+  scanf("%d",&n_estoque);
+  scanf("%f",&saldo);
+}
+else{
+  fscanf(arq,"%d",&maiorCodigoAtual);
+  fscanf(arq,"%f",&saldo);
+
+  produtos = (Produto*)realloc(produtos, sizeof(Produto)* ((maiorCodigoAtual) + 1));
+  for(int j = 0; j < maiorCodigoAtual; j++){
+    produtos[j].nome = malloc(sizeof(char)*100);
+    fscanf(arq,"%s %d %f",produtos[j].nome,&produtos[j].quantidade,&produtos[j].preco);
+  }
+  for(int j = 0; j < maiorCodigoAtual; j++){
+    printf("%s %d %f\n",produtos[j].nome,produtos[j].quantidade,produtos[j].preco);
+  }
+  fclose(arq);
+}
+
+
+
+
+
 
 while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
  
@@ -212,7 +229,8 @@ while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
     CS(&saldo);
   }
   else if(strcmp(comando, "FE") == 0){
-    FE();
+    FE(produtos,maiorCodigoAtual,saldo);
+    free(produtos);
     i = 0;
   }
 
@@ -223,11 +241,6 @@ while(i){ //Esse loop para quando i for 0. Encerrar o dia transforma i em 0
 }
 
 int main(void) {
-
-  
-  //iniciar_dia("caminho/do/arquivo.txt", int *estoque, float *caixa); 
-  //talvez nao passar estoque e o caixa, já que esse é pra leitura, e se for pra escrita, chamar a função adequada, na real passar essas variaveis para leitura 
-  //fazer passagem por referencia no estoque e no saldo do caixa
 
   programa_mercado();
   return 0;
