@@ -1,0 +1,7 @@
+5
+60
+banana 50 3.50
+morcego 20 3.40
+arroz 10 2.50
+agua 5 1.5
+salsa 11 3.34
