@@ -105,14 +105,16 @@ void VE(Produto *produtos, float *saldo){
   //Lê a entrada do usuário até encontrar o -1. Ao final da execução o preço dos produtos vendidos é adicionado ao saldo
   int codigo_do_produto = -2; //É inicializado com -2 porque qualquer numero de -1 até infinito positivo é relevante para a execução
   float preco_total = 0;
-  while(codigo_do_produto != -1){
+  while(codigo_do_produto != -1  ){
     scanf("%d",&codigo_do_produto);
     if(codigo_do_produto == -1){
       break;
     }
+    if(produtos[codigo_do_produto].quantidade > 0){
     printf("%s %.2f\n",produtos[codigo_do_produto].nome,produtos[codigo_do_produto].preco);
     preco_total += produtos[codigo_do_produto].preco;
     produtos[codigo_do_produto].quantidade--;
+    }
   }
   printf("Total: %.2f\n",preco_total);
   *saldo += preco_total;
